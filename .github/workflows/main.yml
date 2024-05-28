@@ -18,7 +18,7 @@ jobs:
     - name: Get Key
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+        ssh-private-key: ${{ secrets.SYNC_TOKEN }}
 
     - name: Clone test Repository
       run: |

@@ -1,4 +1,4 @@
-name: Deploy Assignments
+name: Sync to Destination Repo
 
 on:
   push:
@@ -6,24 +6,23 @@ on:
       - main
 
 jobs:
-  deploy:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout source repository
       uses: actions/checkout@v2
       with:
-        fetch-depth: 1
+        repository: testkapua/main
+        token: ${{ secrets.SYNC_TOKEN }}
+        ref: main
 
-    - name: Get Key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SYNC_TOKEN }}
-
-    - name: Clone test Repository
+    - name: Sync to destination repository
+      env:
+        DEST_REPO_PAT: ${{ secrets.SYNC_TOKEN }}
       run: |
-        git clone --depth 1 git@github.com:testkapua/test.git
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git remote add destination https://$SYNC_TOKEN@github.com/testkapua/test.git
+        git push --force destination main
 
-    - name: Run deploy_assignments.py
-      run: |
-        python3 deploy_assignments.py

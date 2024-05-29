@@ -20,8 +20,6 @@ jobs:
     - name: Checkout source repository
       uses: actions/checkout@v2
       with:
-        app-id: ${{ vars.SYNC_ID }}
-        private-key: ${{ secrets.SYNC_TOKEN }}
         repository: testkapua/main
         ref: main
 
@@ -29,7 +27,5 @@ jobs:
       env:
         DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
-        git config --global user.name "${{ github.actor }}"
-        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
         git remote add destination https://${{ secrets.SYNC_TOKEN }}@github.com/testkapua/test.git
         git push --force destination main

@@ -21,7 +21,7 @@ jobs:
       with:
         source_repo: "testkapua/main"
         source_branch: "main"
-        destination_branch: "testkapua/test"
+        destination_branch: "testkapua/test@main"
         github_token: ${{ steps.generate-token.outputs.token }}
         sync_Tags: "true"
  

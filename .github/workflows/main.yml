@@ -20,7 +20,7 @@ jobs:
       uses: repo-sync/github-sync@v2
       with:
         source_repo: "testkapua/main"
-        source_branch: "testkapua/main@main"
-        destination_branch: "testkapua/test@main"
+        source_branch: "main"
+        destination_branch: "testkapua/test"
         github_token: ${{ steps.generate-token.outputs.token }}
  

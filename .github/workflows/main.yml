@@ -10,16 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Generate a token
+      id: generate-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ vars.SYNC_ID }}
+        private-key: ${{ secrets.SYNC_TOKEN }}
+          
     - name: Checkout source repository
       uses: actions/checkout@v2
       with:
+        app-id: ${{ vars.SYNC_ID }}
+        private-key: ${{ secrets.SYNC_TOKEN }}
         repository: testkapua/main
-        token: ${{ secrets.SYNC_TOKEN }}
         ref: main
 
     - name: Sync to destination repository
       env:
-        SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"

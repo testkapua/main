@@ -25,5 +25,5 @@ jobs:
       env:
         PERSONAL_ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
       with:
-        destination: 'testkapua/test'
+        destination: testkapua/test
  

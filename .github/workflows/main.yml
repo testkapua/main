@@ -23,4 +23,5 @@ jobs:
         source_branch: "main"
         destination_branch: "testkapua/test"
         github_token: ${{ steps.generate-token.outputs.token }}
+        sync_Tags: "true"
  

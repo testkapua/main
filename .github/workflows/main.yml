@@ -24,4 +24,6 @@ jobs:
       uses: jeffreyc/copy-commit-to-another-repo@v1.0.0
       env:
         PERSONAL_ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
+      with:
+        destination: 'testkapua/test'
  

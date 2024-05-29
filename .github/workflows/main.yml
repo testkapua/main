@@ -21,7 +21,7 @@ jobs:
       with:
         fetch-depth: 2
     - name: Copy Commit
-      uses: testkapua/main@v1.0.0
+      uses: jeffreyc/copy-commit-to-another-repo@v1.0.0
       env:
         DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token }}
         destination: 'testkapua/test'

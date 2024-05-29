@@ -27,5 +27,5 @@ jobs:
       env:
         DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
-        git remote add destination https://${{ secrets.SYNC_TOKEN }}@github.com/testkapua/test.git
+        git remote add destination https://github.com/testkapua/test.git
         git push --force destination main

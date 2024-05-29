@@ -23,6 +23,5 @@ jobs:
     - name: Copy Commit
       uses: jeffreyc/copy-commit-to-another-repo@v1.0.0
       env:
-        DEPLOY_TOKEN: ${{ secrets.SYNC_TOKEN }}
-        destination: 'testkapua/test'
+        PERSONAL_ACCESS_TOKEN: ${{ steps.generate-token.outputs.token }}
  

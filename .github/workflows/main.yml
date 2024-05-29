@@ -6,9 +6,8 @@ on:
       - main
 
 jobs:
-  sync:
+  get-token:
     runs-on: ubuntu-latest
-
     steps:
     - name: Generate a token
       id: generate-token
@@ -16,16 +15,16 @@ jobs:
       with:
         app-id: ${{ vars.SYNC_ID }}
         private-key: ${{ secrets.SYNC_TOKEN }}
-          
-    - name: Checkout source repository
-      uses: actions/checkout@v2
+  copy-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
       with:
-        repository: testkapua/main
-        ref: main
-
-    - name: Sync to destination repository
+        fetch-depth: 2
+    - name: Copy Commit
+      uses: testkapua/main@v1.0.0
       env:
-        DEPLOY_TOKEN: ${{ steps.generate-token.outputs.token }}
-      run: |
-        git remote add destination  https://${{ secrets.SYNC_TOKEN }}@github.com/testkapua/test.git
-        git push --force destination main
+        DEPLOY_TOKEN: ${{ get-token.steps.generate-token.outputs.token }}
+        destination: 'testkapua/test'
+ 

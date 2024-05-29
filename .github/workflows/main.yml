@@ -7,6 +7,12 @@ jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
+    - name: Generate a token
+      id: generate-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ vars.SYNC_ID }}
+        private-key: ${{ secrets.SYNC_TOKEN }}
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
@@ -16,5 +22,5 @@ jobs:
         source_repo: "testkapua/main"
         source_branch: "testkapua/main@main"
         destination_branch: "testkapua/test@main"
-        github_token: ${{ secrets.SYNC_TOKEN }}
+        github_token: ${{ steps.generate-token.outputs.token }}
  
